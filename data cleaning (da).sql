@@ -115,3 +115,86 @@ modify column `date` DATE ;
 
 
 select * from ly6 order by 1;
+
+
+
+
+
+
+-- exploratory data analysis 
+
+
+
+select * from ly6;
+
+-- maximum  total laid off  and percentage laid off
+select max(total_laid_off),max(percentage_laid_off),min(total_laid_off) from ly6;  
+
+-- total laid by each company 
+select company,sum(total_laid_off) from ly6 group by company  order by 2 desc;
+
+-- most laid off with respect to industry
+
+select industry,sum(total_laid_off) from ly6 group by  industry  order by 2 desc;
+
+
+-- date range 
+
+select max(`date`), min(`date`) from  ly6;
+
+
+-- with respect to country 
+
+select country,sum(total_laid_off) from ly6 group by country  order by 2 desc;
+
+
+-- by year
+
+select  year(`date`),sum(total_laid_off) from ly6 group by year(`date`)  order by 1 desc;
+
+
+
+
+-- by stage 
+select stage,sum(total_laid_off) from ly6 group by stage  order by 2 desc;
+
+-- by fundraised
+select company,sum(funds_raised_millions) from ly6 group by company  order by 2 desc;
+
+
+-- avgerage  laid off
+
+select company,avg(total_laid_off) from ly6 group by company  order by 2 desc;
+
+-- average laid off by country 
+
+
+select country,avg(total_laid_off) from ly6 group by country  order by 2 desc;
+
+
+-- by month 
+select month(`date`),sum(total_laid_off) from ly6 group by month(`date`) order by 2 desc;
+
+
+-- by month in each year
+ with cte as(select substring(`date`,1,7) as `month`,sum(total_laid_off) as total_off from ly6   where  substring(`date`,1,7) is not null group by `month` order by 1 asc)
+
+
+-- by month in each increament 
+
+select `month`,  total_off,sum(total_off) over (order by `month`) as rl from cte;
+
+-- with respecct ot the companies 
+
+
+
+ with cte1 as (select company, year(`date`) as years,sum(total_laid_off)  as tl from ly6 group by company,year(`date`))
+ 
+ , cte2 as(select *, dense_rank () over(partition by years order by tl  desc  ) as d from cte1 where years  is not null
+  )
+ 
+ select  * from cte2 where d<=5;
+
+
+
+
