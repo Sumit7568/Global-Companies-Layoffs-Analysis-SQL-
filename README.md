@@ -1,4 +1,7 @@
 <img width="880" height="415" alt="Lensa-Global-Layoffs-Report_03-Header" src="https://github.com/user-attachments/assets/a5f906d7-21a4-4597-9969-51787ef04e22" />
+
+
+
 🌍 Global Companies Layoffs Analysis (SQL)
 📌 Project Overview
 
