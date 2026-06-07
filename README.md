@@ -1,3 +1,4 @@
+http://www.linkedin.com/in/sumitraj7007
 🌍 Global Companies Layoffs Analysis (SQL)
 📌 Project Overview
 
